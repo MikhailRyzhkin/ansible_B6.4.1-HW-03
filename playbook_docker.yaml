@@ -57,7 +57,9 @@
         name: docker
 
        # Добавление Docker в автозагрузку, запуск и проверка статуса демона
-       # Описание модуля apt_repository: https://docs.ansible.com/ansible/2.8/modules/command_module.html#command-module
+       # Описание модуля ansible.builtin.service: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/service_module.html
     - name: Run Docker demon
-      command: systemctl enable docker.service && systemctl start docker.service && systemctl status docker.service
+      ansible.builtin.service:  
+        name: docker
+        state: started
 
