@@ -1,0 +1,28 @@
+---
+- hosts: local
+  gather_facts: false
+  become: true
+
+  tasks: 
+       # Установка aptitude, инструмента для взаимодействия с менеджером пакетов Linux
+       # Описание модуля apt: https://docs.ansible.com/ansible/2.8/modules/apt_module.html#apt-module
+    - name: Install aptitude                               
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
+
+       # Установка непосредственно mysql
+    - name: Update apt and install mysql-server
+      apt:
+        name: mysql-server
+        state: latest
+        update_cache: true
+
+       # Добавление mysql в автозагрузку, запуск и проверка статуса демона
+       # Описание модуля ansible.builtin.service: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/service_module.html
+    - name: Run mysql-server demon
+      ansible.builtin.service:  
+        name: mysql.service
+        state: started
+
